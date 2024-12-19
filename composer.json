@@ -14,5 +14,12 @@
             "Kevinfrom\\DIContainer\\": "src"
         }
     },
-    "require": {}
+	"autoload-dev": {
+		"psr-4": {
+			"Kevinfrom\\DIContainer\\Tests\\": "tests"
+		}
+	},
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
 }
