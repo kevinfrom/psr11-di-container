@@ -3,6 +3,7 @@
 namespace Kevinfrom\DIContainer;
 
 use Kevinfrom\DIContainer\Exception\NotFoundException;
+use Psr\Container\ContainerInterface;
 
 final class CachingContainer implements ContainerInterface
 {
@@ -38,7 +39,12 @@ final class CachingContainer implements ContainerInterface
     }
 
     /**
-     * @inheritDoc
+     * Register a service
+     *
+     * @param string   $id
+     * @param callable $invoker
+     *
+     * @return $this
      */
     public function register(string $id, callable $invoker): self
     {
@@ -48,7 +54,12 @@ final class CachingContainer implements ContainerInterface
     }
 
     /**
-     * @inheritDoc
+     * Register a singleton service
+     *
+     * @param string   $id
+     * @param callable $invoker
+     *
+     * @return $this
      */
     public function registerSingleton(string $id, callable $invoker): self
     {
