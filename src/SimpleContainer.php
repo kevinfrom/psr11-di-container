@@ -3,7 +3,6 @@
 namespace Kevinfrom\DIContainer;
 
 use Kevinfrom\DIContainer\Exception\NotFoundException;
-use Psr\Container\ContainerInterface;
 
 final class SimpleContainer implements ContainerInterface
 {
@@ -31,21 +30,21 @@ final class SimpleContainer implements ContainerInterface
     }
 
     /**
-     * Register a service to the container
-     *
-     * @param class-string $id
-     * @param callback     $invoker
-     *
-     * @return void
+     * @inheritDoc
      */
-    public function register(string $id, callable $invoker): void
+    public function register(string $id, callable $invoker): self
     {
         $this->invokers[$id] = $invoker;
+
+        return $this;
     }
 
-    public function registerSingleton(string $id, callable $invoker): void
+    /**
+     * @inheritDoc
+     */
+    public function registerSingleton(string $id, callable $invoker): self
     {
-        $this->invokers[$id] = function () use ($invoker) {
+        $this->register($id, function () use ($invoker) {
             static $instance;
 
             if ($instance === null) {
@@ -53,6 +52,8 @@ final class SimpleContainer implements ContainerInterface
             }
 
             return $instance;
-        };
+        });
+
+        return $this;
     }
 }
