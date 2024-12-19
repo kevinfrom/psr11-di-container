@@ -16,7 +16,7 @@ final class SimpleContainer implements ContainerInterface
     public function get(string $id)
     {
         if ($this->has($id) === false) {
-            throw new NotFoundException();
+            throw new NotFoundException("Could not find service with id: $id");
         }
 
         return call_user_func($this->invokers[$id]);
