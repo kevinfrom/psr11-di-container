@@ -55,4 +55,11 @@ final class SimpleContainerTest extends TestCase
         $service2 = $container->get('test');
         $this->assertSame($service1, $service2);
     }
+
+    public function test_it_throws_not_found_exception_when_service_not_found()
+    {
+        $this->expectExceptionMessage('Could not find service with id: test');
+        $container = new SimpleContainer();
+        $container->get('test');
+    }
 }
