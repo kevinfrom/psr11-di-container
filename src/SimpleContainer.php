@@ -2,10 +2,10 @@
 
 namespace Kevinfrom\DIContainer;
 
-use Kevinfrom\DIContainer\Exception\NotFoundExtention;
+use Kevinfrom\DIContainer\Exception\NotFoundException;
 use Psr\Container\ContainerInterface;
 
-class SimpleContainer implements ContainerInterface
+final class SimpleContainer implements ContainerInterface
 {
     /* @var array<class-string, callable> $invokers */
     private array $invokers = [];
@@ -16,7 +16,7 @@ class SimpleContainer implements ContainerInterface
     public function get(string $id)
     {
         if ($this->has($id) === false) {
-            throw new NotFoundExtention();
+            throw new NotFoundException();
         }
 
         return call_user_func($this->invokers[$id]);

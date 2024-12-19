@@ -7,7 +7,7 @@ use Kevinfrom\DIContainer\SimpleContainer;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class SimpleContainerTest extends TestCase
+final class SimpleContainerTest extends TestCase
 {
     private function getTestObject(): stdClass
     {
