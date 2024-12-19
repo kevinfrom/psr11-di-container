@@ -2,12 +2,13 @@
 
 namespace Kevinfrom\DIContainer\Tests\Unit;
 
-use Kevinfrom\DIContainer\Tests\Utility\TestClass;
-use Kevinfrom\DIContainer\Tests\Utility\TestObject;
-use Kevinfrom\DIContainer\Tests\Utility\TestObjectWithDeeperDependencies;
-use Kevinfrom\DIContainer\Tests\Utility\TestObjectWithDependencies;
-use PHPUnit\Framework\TestCase;
 use Kevinfrom\DIContainer\AutowiringContainer;
+use Kevinfrom\DIContainer\Tests\Utility\Autowiring\TestClass;
+use Kevinfrom\DIContainer\Tests\Utility\Autowiring\TestObjectWithDeeperDependencies;
+use Kevinfrom\DIContainer\Tests\Utility\Autowiring\TestObjectWithDependencies;
+use Kevinfrom\DIContainer\Tests\Utility\Autowiring\TestObjectWithPrivateConstructor;
+use Kevinfrom\DIContainer\Tests\Utility\TestObject;
+use PHPUnit\Framework\TestCase;
 
 final class AutowiringContainerTest extends TestCase
 {
@@ -39,5 +40,20 @@ final class AutowiringContainerTest extends TestCase
         $this->expectExceptionMessage('Could not find service with id: NonExistingClass');
         $container = new AutowiringContainer();
         $container->get('NonExistingClass');
+    }
+
+    public function test_it_can_resolve_a_class_from_invoker_cache(): void
+    {
+        $container = new AutowiringContainer();
+
+        $this->assertInstanceOf(TestObjectWithDependencies::class, $container->get(TestObjectWithDependencies::class));
+        $this->assertInstanceOf(TestObjectWithDependencies::class, $container->get(TestObjectWithDependencies::class));
+    }
+
+    public function test_it_cannot_resolve_a_class_that_is_not_instantiable(): void
+    {
+        $this->expectExceptionMessage('Could not find service with id: ' . TestObjectWithPrivateConstructor::class);
+        $container = new AutowiringContainer();
+        $container->get(TestObjectWithPrivateConstructor::class);
     }
 }

@@ -13,6 +13,7 @@ final class AutowiringContainer implements ContainerInterface
 
     /**
      * @inheritDoc
+     * @throws \ReflectionException
      */
     public function get(string $id)
     {
@@ -20,7 +21,7 @@ final class AutowiringContainer implements ContainerInterface
             throw new NotFoundException("Could not find service with id: $id");
         }
 
-        return call_user_func($this->resolve($id));
+        return call_user_func($this->invokers[$id]);
     }
 
     /**
