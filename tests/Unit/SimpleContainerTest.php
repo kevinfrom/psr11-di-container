@@ -26,14 +26,14 @@ class SimpleContainerTest extends TestCase
     public function test_it_can_add_service()
     {
         $container = new SimpleContainer();
-        $container->registerService('test', fn() => $this->getTestObject());
+        $container->register('test', fn() => $this->getTestObject());
         $this->assertTrue($container->has('test'));
     }
 
     public function test_it_can_get_service()
     {
         $container = new SimpleContainer();
-        $container->registerService('test', fn() => $this->getTestObject());
+        $container->register('test', fn() => $this->getTestObject());
         $service = $container->get('test');
         $this->assertInstanceOf(stdClass::class, $service);
     }
@@ -41,7 +41,7 @@ class SimpleContainerTest extends TestCase
     public function test_it_can_get_different_instance()
     {
         $container = new SimpleContainer();
-        $container->registerService('test', fn() => $this->getTestObject());
+        $container->register('test', fn() => $this->getTestObject());
         $service1 = $container->get('test');
         $service2 = $container->get('test');
         $this->assertNotSame($service1, $service2);

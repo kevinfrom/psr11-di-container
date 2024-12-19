@@ -2,13 +2,12 @@
 
 namespace Kevinfrom\DIContainer;
 
-use Closure;
 use Kevinfrom\DIContainer\Exception\NotFoundExtention;
 use Psr\Container\ContainerInterface;
 
 class SimpleContainer implements ContainerInterface
 {
-    /* @var array<class-string, Closure> */
+    /* @var array<class-string, callable> */
     private array $services = [];
 
     /**
@@ -35,11 +34,11 @@ class SimpleContainer implements ContainerInterface
      * Register a service to the container
      *
      * @param class-string $id
-     * @param \Closure     $param
+     * @param callback     $param
      *
      * @return void
      */
-    public function registerService(string $id, \Closure $param): void
+    public function register(string $id, callable $param): void
     {
         $this->services[$id] = $param;
     }
