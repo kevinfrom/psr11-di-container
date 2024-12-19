@@ -46,4 +46,13 @@ class SimpleContainerTest extends TestCase
         $service2 = $container->get('test');
         $this->assertNotSame($service1, $service2);
     }
+
+    public function test_it_can_get_singleton_instance()
+    {
+        $container = new SimpleContainer();
+        $container->registerSingleton('test', fn() => $this->getTestObject());
+        $service1 = $container->get('test');
+        $service2 = $container->get('test');
+        $this->assertSame($service1, $service2);
+    }
 }
