@@ -1,0 +1,9 @@
+<phpunit
+	colors="true"
+>
+	<testsuites>
+		<testsuite name="PSR11 Dependency Injection container testsuite">
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

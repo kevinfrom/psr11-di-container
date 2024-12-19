@@ -9,6 +9,9 @@
             "email": "kevin@kevinfrom.dk"
         }
     ],
+	"scripts": {
+		"test": "phpunit"
+	},
     "autoload": {
         "psr-4": {
             "Kevinfrom\\DIContainer\\": "src"
@@ -18,6 +21,10 @@
 		"psr-4": {
 			"Kevinfrom\\DIContainer\\Tests\\": "tests"
 		}
+	},
+	"require": {
+		"php": "^8.4",
+		"psr/container": "^2.0"
 	},
     "require-dev": {
         "phpunit/phpunit": "^11.5"
