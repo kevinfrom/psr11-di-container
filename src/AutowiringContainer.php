@@ -2,7 +2,7 @@
 
 namespace Kevinfrom\DIContainer;
 
-use Kevinfrom\DIContainer\Tests\Utility\TestObjectWithDeeperDependencies;
+use Kevinfrom\DIContainer\Exception\NotFoundException;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 
@@ -16,6 +16,10 @@ final class AutowiringContainer implements ContainerInterface
      */
     public function get(string $id)
     {
+        if ($this->has($id) === false) {
+            throw new NotFoundException("Could not find service with id: $id");
+        }
+
         return call_user_func($this->resolve($id));
     }
 
@@ -50,6 +54,10 @@ final class AutowiringContainer implements ContainerInterface
      */
     private function resolve(string $id): ?callable
     {
+        if (class_exists($id) === false) {
+            return null;
+        }
+
         $reflectionClass = new ReflectionClass($id);
 
         if ($reflectionClass->isInstantiable() === false) {
@@ -71,12 +79,5 @@ final class AutowiringContainer implements ContainerInterface
         return function () use ($id, $dependencies) {
             return new $id(...array_map(fn($dependency) => $this->get($dependency), $dependencies));
         };
-    }
-
-    public function test_it_can_resolve_a_class_with_deeper_dependencies(): void
-    {
-        $container = new AutowiringContainer();
-
-        $this->assertInstanceOf(TestObjectWithDeeperDependencies::class, $container->get(TestObjectWithDeeperDependencies::class));
     }
 }
