@@ -2,13 +2,16 @@
 
 namespace Kevinfrom\DIContainer\Tests\Unit;
 
-use Kevinfrom\DIContainer\Tests\LibraryTestCase;
+use PHPUnit\Framework\TestCase;
+use Kevinfrom\DIContainer\Tests\Utility\TestObject;
 use stdClass;
 use Kevinfrom\DIContainer\SimpleContainer;
 use Psr\Container\ContainerInterface;
 
-final class SimpleContainerTest extends LibraryTestCase
+final class SimpleContainerTest extends TestCase
 {
+    use TestObject;
+
     public function test_it_can_instantiate_container()
     {
         $container = new SimpleContainer();

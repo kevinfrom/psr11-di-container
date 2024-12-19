@@ -1,11 +1,10 @@
 <?php
 
-namespace Kevinfrom\DIContainer\Tests;
+namespace Kevinfrom\DIContainer\Tests\Utility;
 
-use PHPUnit\Framework\TestCase;
 use stdClass;
 
-abstract class LibraryTestCase extends TestCase
+trait TestObject
 {
     protected function getTestObject(): stdClass
     {

@@ -2,12 +2,15 @@
 
 namespace Kevinfrom\DIContainer\Tests\Unit;
 
-use Kevinfrom\DIContainer\Tests\LibraryTestCase;
+use Kevinfrom\DIContainer\Tests\Utility\TestObject;
+use PHPUnit\Framework\TestCase;
 use Kevinfrom\DIContainer\CachingContainer;
 use stdClass;
 
-final class CachingContainerTest extends LibraryTestCase
+final class CachingContainerTest extends TestCase
 {
+    use TestObject;
+
     public function test_it_can_register_a_service(): void
     {
         $container = new CachingContainer();
