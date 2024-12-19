@@ -10,7 +10,12 @@
         }
     ],
 	"scripts": {
-		"test": "phpunit"
+		"test": "phpunit",
+        "coverage": "XDEBUG_MODE=coverage phpunit --coverage-clover=clover.xml --path-coverage",
+        "ci": [
+            "@test",
+            "@coverage"
+        ]
 	},
     "autoload": {
         "psr-4": {
